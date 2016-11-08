@@ -1,0 +1,71 @@
+﻿@using CommonInterfaces
+<div class="jumbotron" style="line-height: normal;">
+    <h2>Quick test made in maybe 3 hours</h2>
+    <div>
+        <div>
+            Made using VS 2015 Update 3 remember to restore nuget packages because the package folder is not included.
+            Uses jquery, knockoutjs and bootstrap no unit testing is done did not have time.
+            Very very simple example but i was in a hurry to finish quickly.
+            The gui design is so well designed but time constraint forced me to make shortcuts.
+        </div>
+        <div style="padding-top: 10px;">Main function is on home.viewmodel.js.</div>
+        <div>It makes a ajax request every <label data-bind="text:timeOutDuration"></label> miliseconds.</div> 
+        To the MeController webapi controller with the values choosen in the dropdowns.<br/>
+        Which uses a mocked data with Car Status set randomly.
+        I wanted to use dependency injection and other nice stuff but did not have time.
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row panel panel-default">
+            <div class="panel-body">
+                Poll Timeout duration: <input data-bind="textInput: timeOutDuration" />
+                Choose customer car
+                <select id="customerCars" data-bind="options:companyAll, value: selectedCustomerCarId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Show all--'">
+                    
+                </select> 
+                Filter on Car status
+                <select data-bind="value:filterStatus">
+                    <option value="">--Show all--</option>
+                    <option value="@((int)Car.Status.Available)">@Car.Status.Available</option>
+                    <option value="@((int)Car.Status.Broken)">@Car.Status.Broken</option>
+                    <option value="@((int)Car.Status.NotAvailable)">@Car.Status.NotAvailable</option>
+                </select>
+            </div>
+
+        </div>
+            <div data-bind="foreach: companyCars">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row panel panel-default">
+                        <div class="panel-heading">
+                            <div data-bind="text: name">
+                            </div>
+                            <span data-bind="text: address"></span>,
+                            <span data-bind="text: zipCode"></span>,
+                            <span data-bind="text: city"></span>
+                        </div>
+                        <div class="row panel-body">
+                            <div class="col-md-4">VIN (VehicleId)</div>
+                            <div class="col-md-4">Reg. nr.</div>
+                            <div class="col-md-4">Status</div>
+                            <!-- ko if: cars.length > 0 -->
+                            <div data-bind="foreach: cars">
+                                <div class="col-md-4" data-bind="text: vinNumber"></div>
+                                <div class="col-md-4" data-bind="text: regNumber"></div>
+                                <div class="col-md-4" data-bind="text: statusString"></div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: cars.length == 0 -->
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12">No cars available wait a second <img alt="loading gif" src="/Content/ajax-loader.gif"/>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
